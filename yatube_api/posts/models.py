@@ -113,4 +113,3 @@ class Follow(models.Model):
     def __str__(self):
         return (f'user - {self.user} '
                 f'following - {self.following}')
-
