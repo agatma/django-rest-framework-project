@@ -88,14 +88,14 @@ class Follow(models.Model):
     user = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='follower_user',
+        related_name='follower',
         verbose_name='подписчик',
         help_text='Пользователь, который подписывается.',
     )
     following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
-        related_name='following_user',
+        related_name='following',
         verbose_name='автор',
         help_text='Пользователь, на которого подписываются.',
     )

@@ -1,6 +1,5 @@
 from rest_framework import viewsets, mixins, permissions, filters, pagination
 from rest_framework.generics import get_object_or_404
-from django_filters.rest_framework import DjangoFilterBackend
 from api.permissions import IsOwnerOrReadOnly
 from api.serializers import (
     PostSerializer, UserSerializer, CommentSerializer,
@@ -48,10 +47,9 @@ class FollowViewSet(mixins.CreateModelMixin,
                     mixins.ListModelMixin,
                     viewsets.GenericViewSet):
 
-    queryset = Follow.objects.all()
     serializer_class = FollowSerializer
     permission_classes = (permissions.IsAuthenticated,)
-    filter_backends = (DjangoFilterBackend, filters.SearchFilter,)
+    filter_backends = (filters.SearchFilter,)
     pagination_class = None
     search_fields = ('following__username',)
 
@@ -59,6 +57,4 @@ class FollowViewSet(mixins.CreateModelMixin,
         return Follow.objects.filter(user=self.request.user)
 
     def perform_create(self, serializer):
-        serializer.save(
-            user=self.request.user
-        )
+        serializer.save(user=self.request.user)
