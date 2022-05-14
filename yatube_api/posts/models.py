@@ -89,14 +89,14 @@ class Follow(models.Model):
         User,
         on_delete=models.CASCADE,
         related_name='follower',
-        verbose_name='подписчик',
+        verbose_name='Подписчик',
         help_text='Пользователь, который подписывается.',
     )
     following = models.ForeignKey(
         User,
         on_delete=models.CASCADE,
         related_name='following',
-        verbose_name='автор',
+        verbose_name='Автор подписки',
         help_text='Пользователь, на которого подписываются.',
     )
 
@@ -104,11 +104,11 @@ class Follow(models.Model):
         ordering = ('-following',)
         verbose_name = 'Подписка'
         verbose_name_plural = 'Подписки'
-        constraints = [
+        constraints = (
             models.UniqueConstraint(
                 fields=('user', 'following'),
                 name='unique_follow')
-        ]
+        )
 
     def __str__(self):
         return (f'user - {self.user} '
